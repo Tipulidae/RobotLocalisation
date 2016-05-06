@@ -11,7 +11,7 @@ public class DummyLocalizer implements EstimatorInterface {
 		this.cols = cols;
 		this.head = head;
 		
-	}	
+	}
 	
 	public int getNumRows() {
 		return rows;
