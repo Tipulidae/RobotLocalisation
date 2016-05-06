@@ -1,53 +1,63 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Position {
-	public final int x;
-	public final int y;
-	
-	public Position(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-	
-	public List<Position> neighbours() {
-		List<Position> nbs = new ArrayList<Position>();
+public interface Position {
 
-		nbs.add(new Position(x-1,y));
-		nbs.add(new Position(x+1,y));
-		nbs.add(new Position(x,y-1));
-		nbs.add(new Position(x,y+1));
-		
-		return nbs;
-	}
+	public int getX();
+	public int getY();
+	public int[] toInt();
+	public boolean isWithinBounds(int x, int y, int width, int height);
+	public List<Position> neighbours();
+	public Heading headingWhenFacing(Position pos);
+	public Position nextPositionInHeading(Heading h);
+	public Position add(int x, int y);
 	
-	public Heading headingTo(Position pos) {
-		if (pos.x < x && pos.y == y) return Heading.WEST;
-		else if (pos.x > x && pos.y == y) return Heading.EAST;
-		else if (pos.x == x && pos.y < y) return Heading.NORTH;
-		else if (pos.x == x && pos.y > y) return Heading.SOUTH;
-		
-		return Heading.NONE;
-	}
+	public static final Position NULL = new Position() {
+		@Override
+		public List<Position> neighbours() {
+			return Collections.emptyList();
+		}
 
-	public Position nextPositionInHeading(Heading h) {
-		switch (h) {
-		case NORTH:
-			return new Position(x,y-1);
-		case WEST:
-			return new Position(x-1,y);
-		case SOUTH:
-			return new Position(x,y+1);
-		case EAST:
-			return new Position(x+1,y);
-		default:
+		@Override
+		public Heading headingWhenFacing(Position pos) {
+			return Heading.NONE;
+		}
+
+		@Override
+		public Position nextPositionInHeading(Heading h) {
 			return this;
 		}
-	}
-	
-	public String toString() {
-		return "("+x+","+y+")";
-	}
+
+		@Override
+		public int[] toInt() {
+			return null;
+		}
+		
+		@Override
+		public String toString() {
+			return "NULL";
+		}
+
+		@Override
+		public boolean isWithinBounds(int x, int y, int width, int height) {
+			return false;
+		}
+
+		@Override
+		public int getX() {
+			return -1;
+		}
+
+		@Override
+		public int getY() {
+			return -1;
+		}
+
+		@Override
+		public Position add(int x, int y) {
+			return this;
+		}
+	};
 }

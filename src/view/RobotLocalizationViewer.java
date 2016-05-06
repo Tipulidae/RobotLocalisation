@@ -180,28 +180,28 @@ public class RobotLocalizationViewer {
 		posProb = 0.0;
 		posProbMax = 0.0;
 		maxX = maxY = -1;
-		for( x=0; x<rows; x++) {
-			for( y=0; y<cols; y++) {
+		for( x=0; x<cols; x++) {
+			for( y=0; y<rows; y++) {
 
 				posProb = 0.0;
 				posProb = loc.getCurrentProb( x, y);
-				states[x][y][0].setText( String.format("%.4f", posProb));				
+				states[y][x][0].setText( String.format("%.4f", posProb));				
 				if( posProb == 0.0) {
 					for( h=0; h<5; h++) {
-						states[x][y][h].setBackground(Color.white);
+						states[y][x][h].setBackground(Color.white);
 					}
 				} else if( posProb <= 0.1) {
 					for( h=0; h<5; h++) {
-						states[x][y][h].setBackground(Color.yellow);
+						states[y][x][h].setBackground(Color.yellow);
 					}
 					
 				} else if( posProb <= 0.3) {
 					for( h=0; h<5; h++) {
-						states[x][y][h].setBackground(Color.orange);
+						states[y][x][h].setBackground(Color.orange);
 					}
 				} else {
 					for( h=0; h<5; h++) {
-						states[x][y][h].setBackground(Color.red);
+						states[y][x][h].setBackground(Color.red);
 					}
 				}
 				if( posProb > posProbMax) {
@@ -213,15 +213,15 @@ public class RobotLocalizationViewer {
 			}
 		}
 		if( maxX != -1) {
-			states[maxX][maxY][0].setBackground(Color.lightGray);
-			states[maxX][maxY][1].setBackground(Color.lightGray);
-			states[maxX][maxY][2].setBackground(Color.lightGray);
-			states[maxX][maxY][3].setBackground(Color.lightGray);
+			states[maxY][maxX][0].setBackground(Color.lightGray);
+			states[maxY][maxX][1].setBackground(Color.lightGray);
+			states[maxY][maxX][2].setBackground(Color.lightGray);
+			states[maxY][maxX][3].setBackground(Color.lightGray);
 		}
 			
-		states[tX][tY][4].setBackground(Color.black);
+		states[tY][tX][4].setBackground(Color.black);
 		if( sX != -1)
-			states[sX][sY][4].setBackground(Color.cyan);
+			states[sY][sX][4].setBackground(Color.cyan);
 		
 				
 	}
@@ -231,27 +231,27 @@ public class RobotLocalizationViewer {
 		int x, y, h;
 		String s = "";
 		
-		for( x=0; x<rows; x++) {
-			for( y=0; y<cols; y++) {
+		for( x=0; x<cols; x++) {
+			for( y=0; y<rows; y++) {
 				for( h=0; h<head; h++) {
 					s = "" + loc.getTProb( tXCount, tYCount, tHCount, x, y, h);
-					states[x][y][h].setText( s);
-					states[x][y][h].setBackground(Color.white);
+					states[y][x][h].setText( s);
+					states[y][x][h].setBackground(Color.white);
 						
 				}
-				states[x][y][4].setBackground(Color.white);
-				states[y][y][4].setText( "");
+				states[y][x][4].setBackground(Color.white);
+				states[y][x][4].setText( "");
 
 			}
 		}
 		
-		states[tXCount][tYCount][tHCount].setBackground(Color.cyan);
+		states[tYCount][tXCount][tHCount].setBackground(Color.cyan);
 		//states[tX][tY][4].setText( Integer.toString( tH));
 		if( ++tHCount == head) { 
 			tHCount = 0;
-			if( ++tYCount == cols) {
+			if( ++tYCount == rows) {
 				tYCount = 0;
-				if( ++tXCount == rows) {
+				if( ++tXCount == cols) {
 					tXCount = 0;
 				}
 			}
@@ -263,26 +263,26 @@ public class RobotLocalizationViewer {
 		int x, y, h;
 		String s = "";
 		
-		for( x=0; x<rows; x++) {
-			for( y=0; y<cols; y++) {
+		for( x=0; x<cols; x++) {
+			for( y=0; y<rows; y++) {
 				s = "";
 				for( h=1; h<5; h++) {
-					states[x][y][h].setText( s);
-					states[x][y][h].setBackground(Color.white);						
+					states[y][x][h].setText( s);
+					states[y][x][h].setBackground(Color.white);						
 				}
 				
-				states[x][y][0].setBackground(Color.white);
+				states[y][x][0].setBackground(Color.white);
 				
 				s += "" + loc.getOrXY( sXCount, sYCount, x, y);
 					
-				states[x][y][0].setText( s);
+				states[y][x][0].setText( s);
 			}
 		}	
-		states[sXCount][sYCount][4].setBackground(Color.cyan);
+		states[sYCount][sXCount][4].setBackground(Color.cyan);
 		
-		if( ++sYCount == cols) {
+		if( ++sYCount == rows) {
 			sYCount = 0;
-			if( ++sXCount == rows) {
+			if( ++sXCount == cols) {
 				sXCount = 0;
 			}
 		}

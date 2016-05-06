@@ -24,41 +24,16 @@ public class Room {
 	}
 	
 	public Position getRandomPosition() {
-		return new Position(r.nextInt(width), r.nextInt(height));
+		return new CartesianPosition(r.nextInt(width), r.nextInt(height));
 	}
 	
+	public boolean isInsideRoom(Position sensedPosition) {
+		return sensedPosition.isWithinBounds(0,0,width,height);
+	}
+
 	private List<Heading> headingsNotFacingWalls(Position pos) {
-		return pos.neighbours().stream().filter(p -> isInsideRoom(p)).
-				map(p -> pos.headingTo(p)).collect(Collectors.toList());
-	}
-	
-	private boolean isInsideRoom(Position pos) {
-		return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
+		return pos.neighbours().stream().filter(n -> isInsideRoom(n)).
+				map(n -> pos.headingWhenFacing(n)).collect(Collectors.toList());
 	}
 }
-/*
 
-
-Room room = new Room(5,5);
-Position p = room.getRandomPosition();
-Robot robot = new Robot();
-robot.setPosition(p);
-robot.setHeading(Heading.random());
-
-robot.walk(room);
-
-walk(Room room) {
-	
-}
-
-if (room.isBlocked(robot)) {
-	Heading free = room.getFreeHeading(robot.getPosition());
-	robot.setHeading(free);
-}
-
-boolean isEncounteringWall = room.isBlocked(robot.getPosition(), robot.getHeading());
-robot.pickNewHeading(isEncounteringWall);
-robot.walk();
-
-
-*/
