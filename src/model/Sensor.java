@@ -32,10 +32,9 @@ public class Sensor {
 	public Position getSensedPosition() {
 		return sensedPosition;
 	}
-
 	
 	
-	
+	// Just a quick test to verify that the probabilities are ok.
 	public static void main(String[] args) {
 		new Sensor(new Room(5,5)).test();
 	}

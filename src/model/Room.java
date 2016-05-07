@@ -7,11 +7,10 @@ import java.util.stream.Collectors;
 public class Room {
 	private int width;
 	private int height;
-	private Random r;
+	private Random r = new Random();
 	public Room(int width, int height) {
 		this.width = width;
 		this.height = height;
-		r = new Random();
 	}
 	
 	public Heading getRandomHeading(Position pos) {
@@ -27,8 +26,8 @@ public class Room {
 		return new CartesianPosition(r.nextInt(width), r.nextInt(height));
 	}
 	
-	public boolean isInsideRoom(Position sensedPosition) {
-		return sensedPosition.isWithinBounds(0,0,width,height);
+	public boolean isInsideRoom(Position pos) {
+		return pos.isWithinBounds(0,0,width,height);
 	}
 
 	private List<Heading> headingsNotFacingWalls(Position pos) {

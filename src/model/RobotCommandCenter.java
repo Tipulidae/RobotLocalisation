@@ -32,7 +32,6 @@ public class RobotCommandCenter implements EstimatorInterface {
 	@Override
 	public void update() {
 		robot.walk();
-		//System.out.println(robot);
 	}
 
 	@Override
@@ -42,7 +41,6 @@ public class RobotCommandCenter implements EstimatorInterface {
 
 	@Override
 	public int[] getCurrentReading() {
-		//return null;
 		return robot.sensePosition().toInt();
 	}
 
@@ -63,5 +61,4 @@ public class RobotCommandCenter implements EstimatorInterface {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }
