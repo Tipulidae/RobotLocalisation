@@ -55,16 +55,14 @@ public class Sensor {
 								Heading newHeading = Heading.fromInt(nH);
 
 								int tx = h + 4*x + 4*y*width;
-
 								int ty = nH + nX*4 + nY*4*width;
-								//System.out.println("tx :" + tx + " ty: " + ty);
-								
 								
 								if (!room.neighbours(pos).contains(newPos)) continue;
 								if (pos.headingWhenFacing(newPos) != newHeading) continue;
 								
 								if (room.isFacingWall(pos, heading)) {
 									T[tx][ty] = 1.0/room.numValidHeadings(pos);
+									
 								} else if (heading == newHeading) {
 									T[tx][ty] = 0.7;
 								} else {
@@ -82,7 +80,7 @@ public class Sensor {
 
 
 	public double getT(int tx, int ty) {
-		//System.out.println("tx: " + tx + " ty: " + ty);
+		//System.out.println("T["+tx+"]["+ty+"]="+T[tx][ty]);
 		return T[tx][ty];
 	}
 	
