@@ -29,7 +29,34 @@ public class Room {
 	public boolean isInsideRoom(Position pos) {
 		return pos.isWithinBounds(0,0,width,height);
 	}
-
+	
+	public List<Position> neighbours(Position pos) {
+		return pos.neighbours().stream().filter(n -> isInsideRoom(n)).collect(Collectors.toList());
+	}
+	
+	public int numValidHeadings(Position pos) {
+		return headingsNotFacingWalls(pos).size();
+		//if (isCorner(pos)) return 2;
+		//if (isWall(pos)) return 3;
+		//return 4;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	private boolean isWall(Position pos) {
+		return (pos.getX() == 0 || pos.getX() == width-1) || (pos.getY() == 0 || pos.getY() == height-1);
+	}
+	
+	private boolean isCorner(Position pos) {
+		return (pos.getX() == 0 || pos.getX() == width-1) && (pos.getY() == 0 || pos.getY() == height-1);
+	}
+	
 	private List<Heading> headingsNotFacingWalls(Position pos) {
 		return pos.neighbours().stream().filter(n -> isInsideRoom(n)).
 				map(n -> pos.headingWhenFacing(n)).collect(Collectors.toList());

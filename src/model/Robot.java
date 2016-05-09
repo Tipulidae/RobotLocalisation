@@ -36,7 +36,14 @@ public class Robot {
 	
 	private void maybeChangeHeading() {
 		if (room.isFacingWall(p,h) || rand.nextDouble() < 0.3) {
-			h = room.getRandomHeading(p);
+			Heading oldHeading = h;
+			while (oldHeading == h) {
+				h = room.getRandomHeading(p);
+			}
 		}
+	}
+
+	public Sensor getSensor() {
+		return sensor;
 	}
 }

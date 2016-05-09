@@ -76,4 +76,13 @@ public class CartesianPosition implements Position {
 	public String toString() {
 		return "("+x+","+y+")";
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Position) {
+			Position p = (Position)o;
+			return x == p.getX() && y == p.getY();
+		}
+		return false;
+	}
 }
