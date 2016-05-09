@@ -8,7 +8,6 @@ public class Sensor {
 	private Random r = new Random();
 	public Sensor(Room room) {
 		this.room = room;
-		System.out.println("test");
 	}
 
 	public void sensePositionChanged(Position p) {
