@@ -12,13 +12,16 @@ public class Main {
 		RobotLocalizationViewer viewer = new RobotLocalizationViewer(l);
 		new LocalizationDriver(500, viewer).start();
 		
+		
 		/*
-		Room room = new Room(12, 12);
-		Robot robot = new Robot(room);
-		for (int i=0; i<100; i++) {
-			robot.walk();
-		}
-		robot.getSensor().printError();
-		*/
+		for (int j = 0; j < 1; j++) {
+			Room room = new Room(12, 12);
+			Robot robot = new Robot(room);
+				for (int i=0; i<1000; i++) {
+					robot.walk();
+				}
+			robot.getSensor().printError();
+		}*/
+		
 	}
 }

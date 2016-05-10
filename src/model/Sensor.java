@@ -90,7 +90,7 @@ public class Sensor {
 	}
 	
 	private void doit(Position a, Position b) {
-		double o = 0.1;
+		double o = 0;
 		int dx = Math.abs(a.getX() - b.getX());
 		int dy = Math.abs(a.getY() - b.getY());
 		int m = Math.max(dx, dy);
@@ -99,9 +99,9 @@ public class Sensor {
 		} else if (m == 1) {
 			o += 0.05;
 		}
-		//System.out.println("a="+a+", b="+b+", o="+o);
+		
 		for (int h=0; h<4; h++) {
-			O[h+4*a.getX()+4*width*a.getY()][width*height] = o;
+			O[h+4*a.getX()+4*width*a.getY()][width*height] += o;
 		}
 	}
 	
@@ -111,6 +111,9 @@ public class Sensor {
 		
 		for (int x=0; x<width; x++) {
 			for (int y=0; y<height; y++) {
+				for (int h=0; h<4; h++) {
+					O[h+4*x+4*width*y][width*height] = 0.1;
+				}
 				Position p = new CartesianPosition(x,y);
 				p.positionsWithinRadius(2).stream().filter(n -> !room.isInsideRoom(n)).
 					forEach(n -> doit(p, n));
@@ -186,18 +189,11 @@ public class Sensor {
 			//System.out.print(f[i]+" ");
 			alpha += f[i];
 		}
-		//System.out.println();
 		
 		if (alpha == 0) System.err.println("Oops!");
 		for (int i = 0; i < S; i++) {
 			f[i] /= alpha;
 		}
-		
-		double sum = 0;
-		for (int i=0; i<S; i++) {
-			sum += f[i];
-		}
-		System.out.println("sum="+sum+", alpha="+alpha);
 	}
 	
 	public double getf(int x, int y) {
@@ -226,7 +222,6 @@ public class Sensor {
 			}
 		}
 		error.add(correctPosition.manhattanDistance(new CartesianPosition(maxX,maxY)));
-		System.out.println(error.get(error.size()-1));
 	}
 	
 	public void printError() {
@@ -234,11 +229,6 @@ public class Sensor {
 			System.out.print(i+" ");
 		}
 		System.out.println();
-		/*
-		for (int i : error) {
-			System.out.print((i/sum)+" ");
-		}
-		System.out.println();*/
 	}
 	
 }
