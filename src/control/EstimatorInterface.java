@@ -54,7 +54,7 @@ public interface EstimatorInterface {
 	 * care of potentially necessary transformations from states i = <x, y, h> to 
 	 * positions (x, y)).
 	 */
-	public double getOrXY( int rX, int rY, int x, int y);
+	public double getOrXY(int rX, int rY, int x, int y);
 
 	/*
 	 * returns the probability entry (Tij) of the transition matrix T to go from pose 

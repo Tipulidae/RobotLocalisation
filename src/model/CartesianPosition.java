@@ -25,6 +25,17 @@ public class CartesianPosition implements Position {
 	}
 	
 	@Override
+	public List<Position> positionsWithinRadius(int r) {
+		List<Position> positions = new ArrayList<Position>();
+		for (int nx=x-r; nx<=x+r; nx++) {
+			for (int ny=y-r; ny<=y+r; ny++) {
+				positions.add(new CartesianPosition(nx,ny));
+			}
+		}
+		return positions;
+	}
+	
+	@Override
 	public Heading headingWhenFacing(Position pos) {
 		if (pos.getX() == x && pos.getY() < y) return Heading.NORTH;
 		else if (pos.getX() < x && pos.getY() == y) return Heading.WEST;

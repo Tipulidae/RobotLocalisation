@@ -10,6 +10,7 @@ public interface Position {
 	public int[] toInt();
 	public boolean isWithinBounds(int x, int y, int width, int height);
 	public List<Position> neighbours();
+	public List<Position> positionsWithinRadius(int r);
 	public Heading headingWhenFacing(Position pos);
 	public Position nextPositionInHeading(Heading h);
 	public Position add(int x, int y);
@@ -58,6 +59,11 @@ public interface Position {
 		@Override
 		public Position add(int x, int y) {
 			return this;
+		}
+
+		@Override
+		public List<Position> positionsWithinRadius(int r) {
+			return Collections.emptyList();
 		}
 	};
 }

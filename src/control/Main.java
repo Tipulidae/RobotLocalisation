@@ -9,4 +9,4 @@ public class Main {
 		RobotLocalizationViewer viewer = new RobotLocalizationViewer(l);
 		new LocalizationDriver(500, viewer).start();
 	}
-}	
+}

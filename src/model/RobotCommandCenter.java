@@ -46,14 +46,12 @@ public class RobotCommandCenter implements EstimatorInterface {
 
 	@Override
 	public double getCurrentProb(int x, int y) {
-		// TODO Auto-generated method stub
-		return 0;
+		return robot.getSensor().getf(x, y);
 	}
 
 	@Override
 	public double getOrXY(int rX, int rY, int x, int y) {
-		// TODO Auto-generated method stub
-		return 0.1;
+		return robot.getSensor().getO(rX,rY, x,y);
 	}
 
 	@Override
