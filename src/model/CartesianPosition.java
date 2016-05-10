@@ -96,4 +96,9 @@ public class CartesianPosition implements Position {
 		}
 		return false;
 	}
+
+	@Override
+	public int manhattanDistance(Position p) {
+		return Math.abs(p.getX() - x) + Math.abs(p.getY() - y);
+	}
 }

@@ -14,6 +14,7 @@ public interface Position {
 	public Heading headingWhenFacing(Position pos);
 	public Position nextPositionInHeading(Heading h);
 	public Position add(int x, int y);
+	public int manhattanDistance(Position p);
 	
 	public static final Position NULL = new Position() {
 		@Override
@@ -64,6 +65,11 @@ public interface Position {
 		@Override
 		public List<Position> positionsWithinRadius(int r) {
 			return Collections.emptyList();
+		}
+
+		@Override
+		public int manhattanDistance(Position p) {
+			return Integer.MAX_VALUE;
 		}
 	};
 }

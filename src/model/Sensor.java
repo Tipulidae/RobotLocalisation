@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Sensor {
@@ -12,6 +14,7 @@ public class Sensor {
 	private int height;
 	private int S;
 	private double[] f;
+	private List<Integer> error;
 	public Sensor(Room room) {
 		this.room = room;
 		width = room.getWidth();
@@ -20,6 +23,7 @@ public class Sensor {
 		initT();
 		initO();
 		initf();
+		error = new ArrayList<Integer>();
 	}
 
 	public void sensePositionChanged(Position p) {
@@ -40,7 +44,7 @@ public class Sensor {
 			sensedPosition = Position.NULL;
 		}
 		updatef();
-		
+		estimateError(p);
 	}
 
 	public Position getSensedPosition() {
@@ -95,6 +99,7 @@ public class Sensor {
 		} else if (m == 1) {
 			o += 0.05;
 		}
+		//System.out.println("a="+a+", b="+b+", o="+o);
 		for (int h=0; h<4; h++) {
 			O[h+4*a.getX()+4*width*a.getY()][width*height] = o;
 		}
@@ -138,7 +143,6 @@ public class Sensor {
 				
 			}
 		}
-		
 	}
 
 	public double getT(int tx, int ty) {
@@ -179,13 +183,21 @@ public class Sensor {
 		double alpha = 0;
 		for (int i = 0; i < S; i++) {
 			f[i] = O[i][ind]*newf[i];
+			//System.out.print(f[i]+" ");
 			alpha += f[i];
 		}
+		//System.out.println();
 		
+		if (alpha == 0) System.err.println("Oops!");
 		for (int i = 0; i < S; i++) {
 			f[i] /= alpha;
 		}
 		
+		double sum = 0;
+		for (int i=0; i<S; i++) {
+			sum += f[i];
+		}
+		System.out.println("sum="+sum+", alpha="+alpha);
 	}
 	
 	public double getf(int x, int y) {
@@ -194,6 +206,39 @@ public class Sensor {
 			sum += f[i];
 		}
 		return sum;
+	}
+	
+	private void estimateError(Position correctPosition) {
+		int maxX=-1, maxY=-1;
+		double maxF = 0;
+		
+		for (int x=0; x<width; x++) {
+			for (int y=0; y<height; y++) {
+				double summedF = 0;
+				for (int h=0; h<4; h++) {
+					summedF += f[h+4*x+4*width*y];
+				}
+				if (summedF > maxF) {
+					maxF = summedF;
+					maxX = x;
+					maxY = y;
+				}
+			}
+		}
+		error.add(correctPosition.manhattanDistance(new CartesianPosition(maxX,maxY)));
+		System.out.println(error.get(error.size()-1));
+	}
+	
+	public void printError() {
+		for (int i : error) {
+			System.out.print(i+" ");
+		}
+		System.out.println();
+		/*
+		for (int i : error) {
+			System.out.print((i/sum)+" ");
+		}
+		System.out.println();*/
 	}
 	
 }
