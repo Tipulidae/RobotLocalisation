@@ -46,7 +46,7 @@ public interface EstimatorInterface {
 	 * (x,y) in the grid. The different headings are not considered, as it makes the 
 	 * view somewhat unclear.
 	 */
-	public double getCurrentProb( int x, int y);
+	public double getCurrentProb(int x, int y);
 
 	/*
 	 * returns the probability entry of the sensor matrices O to get reading r corresponding 
@@ -54,12 +54,12 @@ public interface EstimatorInterface {
 	 * care of potentially necessary transformations from states i = <x, y, h> to 
 	 * positions (x, y)).
 	 */
-	public double getOrXY( int rX, int rY, int x, int y);
+	public double getOrXY(int rX, int rY, int x, int y);
 
 	/*
 	 * returns the probability entry (Tij) of the transition matrix T to go from pose 
 	 * i = (x, y, h) to pose j = (nX, nY, nH)
 	 */	
-	public double getTProb( int x, int y, int h, int nX, int nY, int nH);
+	public double getTProb(int x, int y, int h, int nX, int nY, int nH);
 
 }
