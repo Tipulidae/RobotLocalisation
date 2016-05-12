@@ -41,21 +41,25 @@ public class RobotCommandCenter implements EstimatorInterface {
 
 	@Override
 	public int[] getCurrentReading() {
-		return robot.sensePosition().toInt();
+		return robot.sensorReading().toInt();
 	}
 
 	@Override
 	public double getCurrentProb(int x, int y) {
-		return robot.getSensor().getf(x, y);
+		//return robot.getSensor().getf(x, y);
+		return robot.getProbabilityForPosition(new Position(x,y));
 	}
 
 	@Override
 	public double getOrXY(int rX, int rY, int x, int y) {
-		return robot.getSensor().getO(rX,rY, x,y);
+		return robot.probabilityToObserveEvidenceWhenInPos(new Position(rX,rY), new Position(x,y));
+		//return robot.getSensor().getO(rX,rY, x,y);
 	}
 
 	@Override
 	public double getTProb(int x, int y, int h, int nX, int nY, int nH) {
-		return robot.getSensor().getT(h + x*4 + y*4*width, nH + nX*4 + nY*4*width);
+		return robot.probabilityToTransitionFromAtoB(new Position(x,y), Heading.fromInt(h), 
+				new Position(nX, nY), Heading.fromInt(nH));
+		//return robot.getSensor().getT(h + x*4 + y*4*width, nH + nX*4 + nY*4*width);
 	}
 }

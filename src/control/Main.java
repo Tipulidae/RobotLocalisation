@@ -3,14 +3,14 @@ package control;
 import model.Robot;
 import model.RobotCommandCenter;
 import model.Room;
-import view.RobotLocalizationViewer;
+import view.RobotLocalisationViewer;
 
 public class Main {
 	public static void main(String[] args) {
 		
 		EstimatorInterface l = new RobotCommandCenter(10,10);
-		RobotLocalizationViewer viewer = new RobotLocalizationViewer(l);
-		new LocalizationDriver(500, viewer).start();
+		RobotLocalisationViewer viewer = new RobotLocalisationViewer(l);
+		new LocalisationDriver(500, viewer).start();
 		
 		
 		/*

@@ -3,6 +3,8 @@ package model;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Room {
 	private int width;
@@ -23,7 +25,7 @@ public class Room {
 	}
 	
 	public Position getRandomPosition() {
-		return new CartesianPosition(r.nextInt(width), r.nextInt(height));
+		return new Position(r.nextInt(width), r.nextInt(height));
 	}
 	
 	public boolean isInsideRoom(Position pos) {
@@ -32,6 +34,12 @@ public class Room {
 	
 	public List<Position> neighbours(Position pos) {
 		return pos.neighbours().stream().filter(n -> isInsideRoom(n)).collect(Collectors.toList());
+	}
+	
+	public Stream<Position> allPositionsInRoom() {
+		// Uhhh...
+		return IntStream.range(0,width).mapToObj(x -> new Position(x,x));
+		
 	}
 	
 	public int numValidHeadings(Position pos) {
