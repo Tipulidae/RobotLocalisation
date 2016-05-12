@@ -50,8 +50,8 @@ public class Robot {
 		}
 	}
 
-	public Sensor getSensor() {
-		return sensor;
+	public void printError(){
+		filter.printError();
 	}
 
 	public double probabilityToObserveEvidenceWhenInPos(Position evidence, Position pos) {
