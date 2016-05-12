@@ -12,15 +12,13 @@ public class Main {
 		RobotLocalisationViewer viewer = new RobotLocalisationViewer(l);
 		new LocalisationDriver(500, viewer).start();
 		
-		//measureFilterPerformance();
-	}
-	
-	private void measureFilterPerformance() {
+		/*
 		Room room = new Room(12, 12);
 		Robot robot = new Robot(room);
 		for (int i=0; i<1000; i++) {
 			robot.walk();
 		}
 		robot.printError();
+		*/
 	}
 }
